@@ -1,3 +1,5 @@
+For personal project, credits to jakesgordon for original project
+
 Javascript Pseudo 3D Racer
 ==========================
 
