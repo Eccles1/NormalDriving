@@ -670,65 +670,7 @@
     }
 
     //=========================================================================
-// Start of AI autopilot feature
-function autopilotAI(dt) {
-    var playerSegment = findSegment(position + playerZ);
-    var playerW = SPRITES.PLAYER_STRAIGHT.w * SPRITES.SCALE;
-    var laneCenter = 0;
-    var dx = dt * 2 * (speed / maxSpeed);
 
-    // Avoid collisions with cars ahead and perform dynamic lane change
-    for (let n = 0; n < playerSegment.cars.length; n++) {
-        let car = playerSegment.cars[n];
-        let carW = car.sprite.w * SPRITES.SCALE;
-        if (speed > car.speed && Util.overlap(playerX, playerW, car.offset, carW, 0.8)) {
-            if (car.offset > playerX && playerX - dx > -1) {
-                playerX -= dx; // Move left
-            } else if (playerX + dx < 1) {
-                playerX += dx; // Move right
-            }
-        }
-    }
-
-    // Detect and avoid obstacles
-    for (let i = 0; i < playerSegment.sprites.length; i++) {
-        let sprite = playerSegment.sprites[i];
-        let spriteW = sprite.source.w * SPRITES.SCALE;
-        if (Util.overlap(playerX, playerW, sprite.offset, spriteW, 0.8)) {
-            if (sprite.offset > playerX && playerX - dx > -1) {
-                playerX -= dx; // Move left
-            } else if (playerX + dx < 1) {
-                playerX += dx; // Move right
-            }
-        }
-    }
-
-    // Adjust position to stay centered on the road when no obstacles
-    if (playerX < laneCenter) {
-        playerX += dx; // Move right towards center
-    } else if (playerX > laneCenter) {
-        playerX -= dx; // Move left towards center
-    }
-}
-
-// Modify the update function to include AI autopilot
-function update(dt) {
-    autopilotAI(dt); // Call autopilot AI
-    
-    var playerSegment = findSegment(position + playerZ);
-    var speedPercent = speed / maxSpeed;
-    var dx = dt * 2 * speedPercent;
-
-    updateCars(dt, playerSegment, SPRITES.PLAYER_STRAIGHT.w * SPRITES.SCALE);
-    position = Util.increase(position, dt * speed, trackLength);
-    
-    speed = Util.accelerate(speed, accel, dt);
-    playerX = Util.limit(playerX, -1, 1);
-    speed = Util.limit(speed, 0, maxSpeed);
-}
-
-
-    
   </script>
 
 </body> 
