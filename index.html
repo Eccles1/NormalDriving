@@ -23,40 +23,34 @@
       </td>
     </tr>
     <tr>
-      <th><label for="lanes">Lanes :</label></th>
-      <td>
-        <select id="lanes">
-          <option>1</option>
-          <option>2</option>
-          <option selected>3</option>
-          <option>4</option>
-        </select>
-      </td>
+      <th><label for="Lanes">lanes (<span id="lanes"></span>) :</label></th>
+      <td><input id="Lanes" type='text' min='3' max='3' title="integer (3)"></td>
     </tr>
     <tr>
       <th><label for="roadWidth">Road Width (<span id="currentRoadWidth"></span>) :</label></th>
-      <td><input id="roadWidth" type='range' min='500' max='3000' title="integer (500-3000)"></td>
+      <td><input id="roadWidth" type='number' min='2000' max='2000' title="integer (2000)"></td>
     </tr>
     <tr>
       <th><label for="cameraHeight">CameraHeight (<span id="currentCameraHeight"></span>) :</label></th>
-      <td><input id="cameraHeight" type='range' min='500' max='5000' title="integer (500-5000)"></td>
+      <td><input id="cameraHeight" type='text' min='1000' max='1000' title="integer (1000)"></td>
     </tr>
     <tr>
       <th><label for="drawDistance">Draw Distance (<span id="currentDrawDistance"></span>) :</label></th>
-      <td><input id="drawDistance" type='range' min='100' max='500' title="integer (100-500)"></td>
+      <td><input id="drawDistance" type='text' min='300' max='300' title="integer (300)"></td>
     </tr>
     <tr>
       <th><label for="fieldOfView">Field of View (<span id="currentFieldOfView"></span>) :</label></th>
-      <td><input id="fieldOfView" type='range' min='80' max='140' title="integer (80-140)"></td>
+      <td><input id="fieldOfView" type='text' min='100' max='100' title="integer (100)"></td>
     </tr>
     <tr>
       <th><label for="fogDensity">Fog Density (<span id="currentFogDensity"></span>) :</label></th>
-      <td><input id="fogDensity" type='range' min='0' max='50' title="integer (0-50)"></td>
+      <td><input id="fogDensity" type='text' min='5' max='5' title="integer (5)"></td>
     </tr>
   </table>
 
   <div id='instructions'>
     <p>Use the <b>arrow keys</b> to drive the car.</p>
+    <p>Click anywhere in the simulator to begin.</p>
   </div>
 
   <div id="racer">
@@ -198,7 +192,7 @@
         }
       }
 
-      playerX = Util.limit(playerX, -3, 3);     // dont ever let it go too far out of bounds
+      playerX = Util.limit(playerX, -1, 1);     // dont ever let it go too far out of bounds
       speed   = Util.limit(speed, 0, maxSpeed); // or exceed maxSpeed
 
       skyOffset  = Util.increase(skyOffset,  skySpeed  * playerSegment.curve * (position-startPosition)/segmentLength, 1);
@@ -227,7 +221,7 @@
         }
       }
 
-      updateHud('speed',            5 * Math.round(speed/500));
+      updateHud('speed',            Math.round(speed/100));
       updateHud('current_lap_time', formatTime(currentLapTime));
     }
 
